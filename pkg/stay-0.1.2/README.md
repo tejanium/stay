@@ -10,20 +10,20 @@ Installation **stay** is simple. In Rails > 3.0 just add **stay** in your Gemfil
   
 Then include the following Javascript include into your assets/javascript.js.
 
-  `//= require jquery
-  //= require tinymce-jquery
-  //= require stay`
+  `//= require jquery`
+  `//= require tinymce-jquery`
+  `//= require stay`
   
 Then add javascript calling in your Javascript file
 
-  `$(document).ready(function(){
-    jQuery(".stay").stay();
-  });`
+  `$(document).ready(function(){`
+  `  jQuery(".stay").stay();`
+  `});`
 
 or if you're using CoffeScript use
   
-  `jQuery ->
-    jQuery(".stay").stay()`
+  `jQuery ->`
+  `  jQuery(".stay").stay()`
     
 ## Usage
 
@@ -71,9 +71,9 @@ To use external submit button, just passed **submitter:** followed by id of HTML
   
 Example of complete use:
 
-  `<%= link_to "Click me to activate", "#", id: "activate_here" %>
-  <%= stay [@user, @article], :body, type: :tiny_mce, "simple", activator: "#activate_here", submitter: "#submit_here" %>
-  <%= link_to "Click me to submit", "#", id: "submit_here" %>`
+  `<%= link_to "Click me to activate", "#", id: "activate_here" %>`
+  `<%= stay [@user, @article], :body, type: :tiny_mce, "simple", activator: "#activate_here", submitter: "#submit_here" %>`
+  `<%= link_to "Click me to submit", "#", id: "submit_here" %>`
   
 ### call this in your controller
 
@@ -81,14 +81,14 @@ Example of complete use:
   
 Example of complete use:
 
-  `def update
-    user = User.find(params[:user_id])
-    article = user.articles.find(params[:id])
-    respond_to do |format|
-      if article.update_attributes(params[:article])
-        format.json { stay_response(article) }
-      else
-        format.json { stay_response(article) }
-      end
-    end
-  end`
+  `def update`
+  `  user = User.find(params[:user_id])`
+  `  article = user.articles.find(params[:id])`
+  `  respond_to do |format|`
+  `    if article.update_attributes(params[:article])`
+  `      format.json { stay_response(article) }`
+  `    else`
+  `      format.json { stay_response(article) }`
+  `    end`
+  `  end`
+  `end`
