@@ -6,36 +6,36 @@ enchancement. Support [TinyMCE](http://tinymce.moxiecode.com/) as it's editor.
 ## Installation
 Installation **stay** is simple. In Rails > 3.0 just add **stay** in your Gemfile:
 
-  $ gem "stay"
+  > gem "stay"
   
 Then include the following Javascript include into your assets/javascript.js.
 
-  $ //= require jquery
-  $ //= require tinymce-jquery
-  $ //= require stay
+  > //= require jquery
+  > //= require tinymce-jquery
+  > //= require stay
   
 Then add javascript calling in your Javascript file
 
-  $ $(document).ready(function(){
-  $   jQuery(".stay").stay();
-  $ });
+  > $(document).ready(function(){
+  >   jQuery(".stay").stay();
+  > });
 
 or if you're using CoffeScript use
   
-  $ jQuery ->
-  $   jQuery(".stay").stay()
+  > jQuery ->
+  >   jQuery(".stay").stay()
     
 ## Usage
 
 ### call this in your views
 
-  $ stay object, field, OPTIONS{}
+  > stay object, field, OPTIONS{}
 
 Call this helper in your view to build **Stay**
 
 Example:
 
-  $ stay @user, :name, type: :text_field
+  > stay @user, :name, type: :text_field
   
 As default **type** will take :text_field, *for now* you can only pass :text_field, :text_area, :tiny_mce
 
@@ -43,17 +43,17 @@ As default **type** will take :text_field, *for now* you can only pass :text_fie
 
 Example:
 
-  $ stay [@user, @article], :title, type: :text_area
+  > stay [@user, @article], :title, type: :text_area
   
 You can use TinyMCE as text editor, just pass :tiny_mce to **type**
 
 Example:
 
-  $ stay [@user, @article], :body, type: :tiny_mce
+  > stay [@user, @article], :body, type: :tiny_mce
   
 This will use TinyMCE editor with "simple" theme, you can also change this theme by using
 
-  $ stay [@user, @article], :body, type: [:tiny_mce, "advanced"]
+  > stay [@user, @article], :body, type: [:tiny_mce, "advanced"]
   
 
 When called, by default **Stay** triggered by clicking the displayed text on HTML page.
@@ -63,32 +63,32 @@ To use, just passed **activator:** followed by id of HTML element id
 
 Example:
 
-  $ stay [@user, @article], :body, type: [:tiny_mce, "advanced"], activator: "#id_of_activator"
+  > stay [@user, @article], :body, type: [:tiny_mce, "advanced"], activator: "#id_of_activator"
   
 To use external submit button, just passed **submitter:** followed by id of HTML element id
 
-  $ stay [@user, @article], :body, type: [:tiny_mce, "advanced"], activator: "#id_of_activator", submitter: "#id_of_submit_button"
+  > stay [@user, @article], :body, type: [:tiny_mce, "advanced"], activator: "#id_of_activator", submitter: "#id_of_submit_button"
   
 Example of complete use:
 
-  $ <%= link_to "Click me to activate", "#", id: "activate_here" %>
-  $ <%= stay [@user, @article], :body, type: :tiny_mce, "simple", activator: "#activate_here", submitter: "#submit_here" %>
-  $ <%= link_to "Click me to submit", "#", id: "submit_here" %>
+  > <%= link_to "Click me to activate", "#", id: "activate_here" %>
+  > <%= stay [@user, @article], :body, type: :tiny_mce, "simple", activator: "#activate_here", submitter: "#submit_here" %>
+  > <%= link_to "Click me to submit", "#", id: "submit_here" %>
   
 ### call this in your controller
 
-  $ stay_response object
+  > stay_response object
   
 Example of complete use:
 
-  $ def update
-  $   user = User.find(params[:user_id])
-  $   article = user.articles.find(params[:id])
-  $   respond_to do |format|
-  $     if article.update_attributes(params[:article])
-  $       format.json { stay_response(article) }
-  $     else
-  $       format.json { stay_response(article) }
-  $     end
-  $   end
-  $ end
+  > def update
+  >   user = User.find(params[:user_id])
+  >   article = user.articles.find(params[:id])
+  >   respond_to do |format|
+  >     if article.update_attributes(params[:article])
+  >       format.json { stay_response(article) }
+  >     else
+  >       format.json { stay_response(article) }
+  >     end
+  >   end
+  > end
