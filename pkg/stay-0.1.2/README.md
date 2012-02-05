@@ -1,7 +1,7 @@
 # Stay
 **Stay** is a RESTful ajax inplace-editor helper based on jQuery and Unobustorsive javascript.
 Similar and inspired by [best_in_place](https://github.com/bernat/best_in_place), with extra
-enchancement. Support [TinyMCE](http://tinymce.moxiecode.com/) as it's editor.
+enchancement. Support [TinyMCE](http://tinymce.moxiecode.com/) as its editor.
 
 ## Installation
 Installation **stay** is simple. In Rails > 3.0 just add **stay** in your Gemfile:
@@ -27,7 +27,7 @@ or if you're using CoffeScript use
         
 ## Usage
 
-### call this in your views
+### call this in your view
 
     stay object, field, OPTIONS{}
 
@@ -57,7 +57,7 @@ This will use TinyMCE editor with "simple" theme, you can also change this theme
     
 
 When called, by default **Stay** triggered by clicking the displayed text on HTML page.
-**Stay** accept external trigger and submit button
+**Stay** accept external trigger and submit button:
 
 To use, just passed **activator:** followed by id of HTML element id
 
@@ -72,7 +72,7 @@ To use external submit button, just passed **submitter:** followed by id of HTML
 Example of complete use:
 
     <%= link_to "Click me to activate", "#", id: "activate_here" %>
-    <%= stay [@user, @article], :body, type: :tiny_mce, "simple", activator: "#activate_here", submitter: "#submit_here" %>
+    <%= stay [@user, @article], :body, type: :tiny_mce, activator: "#activate_here", submitter: "#submit_here" %>
     <%= link_to "Click me to submit", "#", id: "submit_here" %>
     
 ### call this in your controller
