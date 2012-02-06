@@ -7,6 +7,7 @@ enchancement. Support [TinyMCE](http://tinymce.moxiecode.com/) as its editor.
 Installation **stay** is simple. In Rails > 3.0 just add **stay** in your Gemfile:
 
 ```ruby
+  gem "tinymce-rails"
   gem "stay"
 ```
     
