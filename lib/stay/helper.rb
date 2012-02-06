@@ -18,7 +18,7 @@ module Stay
       html = "<span class='stay' "
       html << "data-activator='#{ opts[:activator] }' " if opts[:activator]
       html << "data-submitter='#{ opts[:submitter] }' " if opts[:submitter]
-      html << "data-tinymce-theme='#{ opts[:type] }' " if opts[:type] == :tiny_mce
+      html << "data-tinymce-theme='simple' " if opts[:type] == :tiny_mce
       html << "data-tinymce-theme='#{ opts[:type][1] }' " if opts[:type].is_a?(Array)
       html << ">"
         html << "<span class='stay-object'>"
