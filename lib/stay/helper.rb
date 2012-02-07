@@ -22,7 +22,12 @@ module Stay
       html << "data-tinymce-theme='#{ opts[:type][1] }' " if opts[:type].is_a?(Array)
       html << ">"
         html << "<span class='stay-object'>"
-          html << (record.is_a?(Array) ? record.last : record).send(field).try(:to_html)
+          val = (record.is_a?(Array) ? record.last : record).send(field)
+          if val.nil?
+            html << "-"
+          else        
+            html << val.to_html
+          end
         html << "</span>"
         html << "<span class='stay-form' style='display:none'>"
           html << generate_form(record, field, opts[:type])
