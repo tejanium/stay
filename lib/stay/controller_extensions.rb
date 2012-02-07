@@ -8,13 +8,13 @@ module Stay
       def response_ok(obj)
         field = params[obj.class.to_s.underscore].keys.first
         value = obj.send(field.to_sym)
-        render json: { :display => value.to_html, :input => value }, status: :ok
+        render json: { :display => value.try(:to_html), :input => value }, status: :ok
       end
 
       def response_error(obj)
         field = params[obj.class.to_s.underscore].keys.first
         value = obj.send("#{field}_was".to_sym)
-        render json: { :display => value.to_html, :input => value }, status: :unprocessable_entity
+        render json: { :display => value.try(:to_html), :input => value }, status: :unprocessable_entity
       end
   end
 end
