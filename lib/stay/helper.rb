@@ -3,7 +3,15 @@ module Stay
     def generate_form(object, field, type = :text_field)
       form_for(object, remote: true, format: :json) do |f|
         if type == :tiny_mce || type.is_a?(Array)
-          f.send(:text_area, field, class: "stay-input stay-tiny-mce")
+          if type == :tiny_mce
+            w = "100%"
+            h = "200px"
+          else
+            w = type[2] || "100%"
+            h = type[3] || "200px"
+          end
+          object_id = (object.is_a?(Array) ? object.last : object).id
+          f.send(:text_area, field, class: "stay-input stay-tiny-mce", id: "stay-mce-#{ object_id }", style: "width:#{w}; height:#{h};")
         else
           f.send(type, field, class: "stay-input")
         end

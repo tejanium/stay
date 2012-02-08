@@ -73,6 +73,15 @@ This will use TinyMCE editor with "simple" theme, you can also change this theme
 ```ruby
   stay [@user, @article], :body, type: [:tiny_mce, "advanced"]
 ```    
+Now you can pass width and height of tinyMCE using CSS string format
+
+Example
+
+```ruby
+  stay [@user, @article], :body, type: [:tiny_mce, "advanced", "100%", "200px"]
+```    
+
+Remember to put width and height respectively
 
 When called, by default **Stay** triggered by clicking the displayed text on HTML page.
 **Stay** accept external trigger and submit button:
