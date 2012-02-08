@@ -1,7 +1,7 @@
 module Stay
   module StringExtensions
     def to_html
-      html = self.gsub(" ", "&nbsp;").gsub("\n", "<br />").gsub("<p>", "").gsub("</p>","")
+      html = self.gsub("  ", "&nbsp;&nbsp;").gsub("\n", "<br />").gsub("<p>", "").gsub("</p>","")
       html
     end
   end
