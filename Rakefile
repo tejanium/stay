@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('stay', '0.1.3.4-1') do |p|
+Echoe.new('stay', '0.1.3.4.1') do |p|
   p.description     = "Form ajax helper with tinymce support"
   p.summary         = "Helper for building ajax form, inspired by best_in_place, with some modifications, support tinymce as editor"
   p.url             = "http://github.com/tejanium/stay"
