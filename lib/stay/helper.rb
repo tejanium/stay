@@ -22,10 +22,13 @@ module Stay
   ActionView::Helpers::FormHelper.send(:include, FormHelper)
   
   module StayHelpers
-    def stay(record, field, opts = {})
+    def stay(record, field, opts = {})      
+      raise ArgumentError, "Can't have Canceller without Submitter" if opts[:canceller] && opts[:submitter].nil?
+      opts[:type] ||= :text_field
       html = "<span class='stay' "
       html << "data-activator='#{ opts[:activator] }' " if opts[:activator]
       html << "data-submitter='#{ opts[:submitter] }' " if opts[:submitter]
+      html << "data-canceller='#{ opts[:canceller] }' " if opts[:canceller]
       html << "data-tinymce-theme='simple' " if opts[:type] == :tiny_mce
       html << "data-tinymce-theme='#{ opts[:type][1] }' " if opts[:type].is_a?(Array)
       html << ">"

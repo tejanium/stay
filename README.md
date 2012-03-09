@@ -83,10 +83,10 @@ Example
 
 Remember to put width and height respectively
 
-When called, by default **Stay** triggered by clicking the displayed text on HTML page.
-**Stay** accept external trigger and submit button:
+When called, by default **Stay** triggered by clicking the displayed text on HTML page, submitted by blur, and cancelled by pressing ESC key on your keyboard.
+**Stay** accept external trigger, submit, and cancel button:
 
-To use, just passed **activator:** followed by id of HTML element id
+To use external activator, just passed **activator:** followed by id of HTML element id
 
 Example:
 
@@ -94,10 +94,19 @@ Example:
   stay [@user, @article], :body, type: [:tiny_mce, "advanced"], activator: "#id_of_activator"
 ```
     
-To use external submit button, just passed **submitter:** followed by id of HTML element id
+To use external submit button, just passed **submitter:** followed by id of HTML element id.
+Note that this external submit button will be hidden by **Stay** and will be visible once **Stay** editor is visible (stay triggered).
 
 ```ruby
   stay [@user, @article], :body, type: [:tiny_mce, "advanced"], activator: "#id_of_activator", submitter: "#id_of_submit_button"
+```
+
+To use external cancel button, just passed **canceller:** followed by id of HTML element id
+Note that this external cancel button will be hidden by **Stay** and will be visible once **Stay** editor is visible (stay triggered).
+Due to **Stay** default submit event is triggered by blur **Stay** will raise ArgumentError if you specified external canceller without external submitter.
+
+```ruby
+  stay [@user, @article], :body, type: [:tiny_mce, "advanced"], activator: "#id_of_activator", submitter: "#id_of_submit_button", canceller: "#id_of_cancel_button"
 ```
     
 Example of complete use:
@@ -105,9 +114,9 @@ Example of complete use:
 ```ruby
   <%= link_to "Click me to activate", "#", id: "activate_here" %>
   <%= stay [@user, @article], :body, type: :tiny_mce, activator: "#activate_here", submitter: "#submit_here" %>
-  <%= link_to "Click me to submit", "#", id: "submit_here" %>
+  <%= link_to "Click me to submit", "#", id: "submit_here" #this will be hide by Stay %>
 ```
-    
+
 ### call this in your controller
 
     stay_response object
@@ -126,4 +135,12 @@ Example of complete use:
           end
       end
   end
+```
+
+### JSON callback
+When Rails Model refuse to save object due to validation errors, **Stay** will carry this errors in its response text, you can evaluate the error by passing this response text as JSON and call the errors properties. You can do whatever you wish with the errors messages.
+
+```javascript
+      cb_data = jQuery.parseJSON(data.responseText);
+      errs    = cb_data.errors; //this contains array of errors   
 ```
