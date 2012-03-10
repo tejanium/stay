@@ -10,7 +10,7 @@ Installation **stay** is simple. In Rails > 3.0 just add **stay** in your Gemfil
   gem "tinymce-rails"
   gem "stay"
 ```
-    
+
 Then include the following Javascript include into your assets/javascript.js.
 
 ```ruby
@@ -18,7 +18,7 @@ Then include the following Javascript include into your assets/javascript.js.
   //= require tinymce-jquery
   //= require stay
 ```
- 
+
 Then add javascript calling in your Javascript file
 
 ```javascript
@@ -29,14 +29,38 @@ Then add javascript calling in your Javascript file
 
 or if you're using CoffeScript use
 
-```   
+```
   jQuery ->
       jQuery(".stay").stay()
 ```
-     
+
+### Javascript Callback
+**Stay** also accept callback arguments, currently **Stay** only have 3 callback attributes
+- beforeSend
+- onError
+- onSuccess
+
+Below is the examples how to implement **Stay** with callbacks, call this javascript when initalize **Stay**
+
+```javascript
+jQuery(".stay").stay({
+    beforeSend: function() {
+      // Do whatever you want before data is being sent to server, e.g. display the loading bar
+    },
+    onError: function(errs) {
+      // This method takes one argument contains array of errors similar with Obj.errors in Rails
+      return $.each(errs, function(key) {
+        return alert(key + " " + errs[key]);
+      });
+    },
+    onSuccess: function() {
+      // Do whatever you want when server said OK, e.g. hide the loading bar
+    }
+  });
+```
 ## Usage
 
-### call this in your view
+### In your View
 
 ```
   stay object, field, OPTIONS{}
@@ -49,7 +73,7 @@ Example:
 ```ruby
   stay @user, :name, type: :text_field
 ```
-    
+
 As default **type** will take :text_field, *for now* you can only pass :text_field, :text_area, :tiny_mce
 
 **Stay** support sub-resources routes, therefore you can pass array into **object** param
@@ -59,7 +83,7 @@ Example:
 ```ruby
   stay [@user, @article], :title, type: :text_area
 ```
-    
+
 You can use TinyMCE as text editor, just pass :tiny_mce to **type**
 
 Example:
@@ -67,19 +91,19 @@ Example:
 ```ruby
   stay [@user, @article], :body, type: :tiny_mce
 ```
-    
+
 This will use TinyMCE editor with "simple" theme, you can also change this theme by using
 
 ```ruby
   stay [@user, @article], :body, type: [:tiny_mce, "advanced"]
-```    
+```
 Now you can pass width and height of tinyMCE using CSS string format
 
 Example
 
 ```ruby
   stay [@user, @article], :body, type: [:tiny_mce, "advanced", "100%", "200px"]
-```    
+```
 
 Remember to put width and height respectively
 
@@ -93,7 +117,7 @@ Example:
 ```ruby
   stay [@user, @article], :body, type: [:tiny_mce, "advanced"], activator: "#id_of_activator"
 ```
-    
+
 To use external submit button, just passed **submitter:** followed by id of HTML element id.
 Note that this external submit button will be hidden by **Stay** and will be visible once **Stay** editor is visible (stay triggered).
 
@@ -108,7 +132,7 @@ Due to **Stay** default submit event is triggered by blur **Stay** will raise Ar
 ```ruby
   stay [@user, @article], :body, type: [:tiny_mce, "advanced"], activator: "#id_of_activator", submitter: "#id_of_submit_button", canceller: "#id_of_cancel_button"
 ```
-    
+
 Example of complete use:
 
 ```ruby
@@ -117,10 +141,10 @@ Example of complete use:
   <%= link_to "Click me to submit", "#", id: "submit_here" #this will be hide by Stay %>
 ```
 
-### call this in your controller
+### In your Controller
 
     stay_response object
-    
+
 Example of complete use:
 
 ```ruby
@@ -137,10 +161,19 @@ Example of complete use:
   end
 ```
 
-### JSON callback
-When Rails Model refuse to save object due to validation errors, **Stay** will carry this errors in its response text, you can evaluate the error by passing this response text as JSON and call the errors properties. You can do whatever you wish with the errors messages.
+## Changelog
+Just some good releases changelog:
 
-```javascript
-      cb_data = jQuery.parseJSON(data.responseText);
-      errs    = cb_data.errors; //this contains array of errors   
-```
+  **v0.1.4.0**
+  - Complete rewrite Javascript, made it modular
+  - Add ability to initialize Stay with callback
+
+  **v0.1.3.5**
+  - Add Canceller
+  - Hide Submitter and Canceller until Stay is activated
+
+  **v0.1.3.4.4**
+  - Add error callback to the JSON
+
+  **v0.1.0.0**
+  - Initial release, February 4th 2012
