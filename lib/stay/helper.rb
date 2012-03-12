@@ -1,5 +1,5 @@
 module Stay
-  module FormHelper   
+  module FormHelper
     def generate_form(object, field, type = :text_field)
       form_for(object, remote: true, format: :json) do |f|
         if type == :tiny_mce || type.is_a?(Array)
@@ -18,11 +18,11 @@ module Stay
       end
     end
   end
-  
+
   ActionView::Helpers::FormHelper.send(:include, FormHelper)
-  
+
   module StayHelpers
-    def stay(record, field, opts = {})      
+    def stay(record, field, opts = {})
       raise ArgumentError, "Can't have Canceller without Submitter" if opts[:canceller] && opts[:submitter].nil?
       opts[:type] ||= :text_field
       html = "<span class='stay' "
@@ -36,7 +36,7 @@ module Stay
           val = (record.is_a?(Array) ? record.last : record).send(field)
           if val.nil?
             html << "-"
-          else        
+          else
             html << val.to_html
           end
         html << "</span>"
