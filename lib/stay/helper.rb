@@ -20,7 +20,7 @@ module Stay
   end
 
   ActionView::Helpers::FormHelper.send(:include, FormHelper)
-
+  
   module StayHelpers
     def stay(record, field, opts = {})
       raise ArgumentError, "Can't have Canceller without Submitter" if opts[:canceller] && opts[:submitter].nil?
@@ -37,7 +37,7 @@ module Stay
           if val.nil?
             html << "-"
           else
-            html << val.to_html
+            html << sanitize(val, tags: %w(p strong em span ul li ol)).to_html
           end
         html << "</span>"
         html << "<span class='stay-form' style='display:none'>"
@@ -48,3 +48,4 @@ module Stay
     end
   end
 end
+

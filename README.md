@@ -161,6 +161,9 @@ Example of complete use:
   end
 ```
 
+### Sanitize
+Since version 0.1.4.1, **Stay** only accept this tags %w(p strong em span ul li ol)
+
 ## Changelog
 Just some good releases changelog:
 
