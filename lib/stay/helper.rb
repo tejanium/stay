@@ -25,7 +25,7 @@ module Stay
     def stay(record, field, opts = {})
       raise ArgumentError, "Can't have Canceller without Submitter" if opts[:canceller] && opts[:submitter].nil?
       opts[:type] ||= :text_field
-      html = "<span class='stay' "
+      html = "<span class='stay' id=#{ if opts[:id] }"
       html << "data-activator='#{ opts[:activator] }' " if opts[:activator]
       html << "data-submitter='#{ opts[:submitter] }' " if opts[:submitter]
       html << "data-canceller='#{ opts[:canceller] }' " if opts[:canceller]
@@ -37,7 +37,7 @@ module Stay
           if val.nil?
             html << "-"
           else
-            html << sanitize(val, tags: %w(p strong em span ul li ol)).to_html
+            html << sanitize(val, tags: %w(p strong em span ul li ol br)).to_html
           end
         html << "</span>"
         html << "<span class='stay-form' style='display:none'>"
